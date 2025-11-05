@@ -32,6 +32,7 @@ jobs:
             echo "____Setting up environment____"
             export NVM_DIR="$HOME/.nvm"
             source "$NVM_DIR/nvm.sh"
+            nvm install 22.18.0
             nvm use 22.18.0
             
             echo "____Backend: installing and building____"

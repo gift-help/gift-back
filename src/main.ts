@@ -10,8 +10,8 @@ async function bootstrap() {
     .setDescription('The cats API description')
     .setVersion('1.0')
     .build();
-  const documentFactory = () => SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api/docs', app, documentFactory);
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('docs', app, document);
 
   await app.listen(5000);
 }
