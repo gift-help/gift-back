@@ -1,0 +1,37 @@
+name: Backend Deploy
+
+on:
+  push:
+    branches:
+      - main
+      - 'feature/**'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Deploy to VPS
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          script: |
+            cd /var/www/gift/backend
+            
+            echo "____Pulling latest changes____"
+            git pull origin main
+            
+            echo "____Backend: installing and building____"
+            npm install
+            npm run build
+
+            # Применение миграций
+            # npm run migration:run || echo "No migration command"
+
+            # Перезапуск pm2
+            pm2 reload gift-back || pm2 start dist/main.js --name gift-back
