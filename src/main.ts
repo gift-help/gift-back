@@ -5,13 +5,17 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  app.setGlobalPrefix('api');
+
   const config = new DocumentBuilder()
-    .setTitle('Cats example')
-    .setDescription('The cats API description')
+    .setTitle('Gift API')
+    .setDescription('API for Gift app')
     .setVersion('1.0')
     .build();
+
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api/docs', app, document, {
+
+  SwaggerModule.setup('docs', app, document, {
     useGlobalPrefix: true,
   });
 
