@@ -6,3 +6,70 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+enum Gender {
+  MALE
+  FEMALE
+}
+
+enum Occasion {
+  BIRTHDAY
+  NEW_YEAR
+  MARCH_8
+  FEBRUARY_23
+  WEDDING
+  ANNIVERSARY
+  JUST_BECAUSE
+  OTHER
+}
+
+enum GiftFormat {
+  WILDBERRIES
+  OZON
+  YANDEX_MARKET
+  IDEA_ONLY
+}
+
+enum RelationLevel {
+  LOW
+  HIGH
+}
+
+enum BudgetRange {
+  UP_TO_1000
+  FROM_1000_TO_3000
+  FROM_3000_TO_5000
+  FROM_5000_TO_7000
+  FROM_7000_TO_10000
+  ANY
+  CUSTOM
+}
+
+model User {
+  id           String   @id @default(uuid())
+  telegramId   Int      @unique
+  username     String?
+  firstName    String?
+  lastName     String?
+  languageCode String?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  giftSessions GiftSession[]
+}
+
+model GiftSession {
+  id             String         @id @default(uuid())
+  userId         String
+  user           User           @relation(fields: [userId], references: [id])
+  gender         Gender?
+  age            Int?
+  occasion       Occasion?
+  customOccasion String?
+  format         GiftFormat?
+  relationLevel  RelationLevel?
+  budgetRange    BudgetRange?
+  customBudget   String?
+  methodsUsed    String?
+  createdAt      DateTime       @default(now())
+}
