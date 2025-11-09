@@ -15,9 +15,7 @@ async function bootstrap() {
 
   const document = SwaggerModule.createDocument(app, config);
 
-  SwaggerModule.setup('docs', app, document, {
-    useGlobalPrefix: true,
-  });
+  SwaggerModule.setup('api/docs', app, document);
 
   app.enableCors({
     // origin: ['http://localhost:5173', 'https://gift.dubskilw.beget.tech/'],
