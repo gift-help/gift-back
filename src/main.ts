@@ -19,6 +19,13 @@ async function bootstrap() {
     useGlobalPrefix: true,
   });
 
+  app.enableCors({
+    // origin: ['http://localhost:5173', 'https://gift.dubskilw.beget.tech/'],
+    origin: '*',
+    methods: '*',
+    credentials: true,
+  })
+
   await app.listen(5000);
 }
 bootstrap();
