@@ -1,7 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import * as crypto from 'crypto';
 import { PrismaService } from '../prisma/prisma.service';
 import { JwtService } from '@nestjs/jwt';
+import { TelegramAuthDto } from './dto/auth.dto';
+import { User } from '@prisma/client';
 
 @Injectable()
 export class AuthService {
@@ -10,7 +12,7 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  verifyTelegramAuth(initData: string): { telegramId: number; username?: string; firstName?: string; lastName?: string } | null {
+  verifyTelegramAuth(initData: TelegramAuthDto['initData']) {
     const botToken = process.env.BOT_TOKEN || '';
     const urlParams = new URLSearchParams(initData);
     const hash = urlParams.get('hash');
@@ -25,12 +27,12 @@ export class AuthService {
     const hmac = crypto.createHmac('sha256', secretKey).update(dataCheckArr).digest('hex');
 
     if (hmac !== hash) {
-      return null;
+      throw new UnauthorizedException();
     }
 
     const userJson = urlParams.get('user');
     if (!userJson) {
-      return null;
+      throw new UnauthorizedException();
     }
 
     const userData = JSON.parse(userJson);

@@ -7,6 +7,31 @@ async function bootstrap() {
 
   app.setGlobalPrefix('api');
 
+  app.enableCors({
+    origin: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS', 'HEAD'],
+    allowedHeaders: [
+      'Origin',
+      'X-Requested-With',
+      'Content-Type',
+      'Accept',
+      'Authorization',
+      'Access-Control-Allow-Headers',
+      'Access-Control-Request-Method',
+      'Access-Control-Request-Headers',
+      'Access-Control-Allow-Origin',
+      'X-API-Key'
+    ],
+    exposedHeaders: [
+      'Authorization',
+      'Access-Control-Allow-Origin',
+      'Access-Control-Allow-Credentials'
+    ],
+    credentials: false,
+    preflightContinue: false,
+    optionsSuccessStatus: 204
+  });
+
   const config = new DocumentBuilder()
     .setTitle('Gift API')
     .setDescription('API for Gift app')
@@ -14,16 +39,9 @@ async function bootstrap() {
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
-
   SwaggerModule.setup('api/docs', app, document);
 
-  app.enableCors({
-    // origin: ['http://localhost:5173', 'https://gift.dubskilw.beget.tech/'],
-    origin: '*',
-    methods: '*',
-    credentials: true,
-  })
-
   await app.listen(5000);
+  console.log('Application is running on: http://localhost:5000');
 }
 bootstrap();

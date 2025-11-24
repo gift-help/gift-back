@@ -27,7 +27,9 @@ jobs:
             npm install -g pm2
             
             echo "____Pulling latest changes____"
-            git pull origin main
+            git fetch origin
+            git checkout ${{ github.ref_name }}
+            git reset --hard origin/${{ github.ref_name }}
 
             echo "____Setting up environment____"
             export NVM_DIR="$HOME/.nvm"

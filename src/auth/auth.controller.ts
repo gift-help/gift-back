@@ -1,12 +1,13 @@
 import { Controller, Post, Body, UnauthorizedException } from '@nestjs/common';
 import { AuthService } from './auth.service';
+import { AuthResponseDto, TelegramAuthDto } from './dto/auth.dto';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('telegram')
-  async telegramAuth(@Body() body: { initData: string }) {
+  async telegramAuth(@Body() body: TelegramAuthDto): Promise<AuthResponseDto > {
     const userData = this.authService.verifyTelegramAuth(body.initData);
 
     if (!userData) {
