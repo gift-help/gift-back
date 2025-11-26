@@ -10,7 +10,7 @@ export class AiController {
   constructor(private readonly aiService: AiService) {}
 
   @Post('suggest')
-  @ApiOperation({ summary: '[BACKEND ONLY] Suggest gift ideas by keywords' })
+  @ApiOperation({ summary: '[BACKEND ONLY] Suggest gift ideas by user request' })
   @ApiBody({ type: GiftSessionDto })
   @ApiResponse({ status: 201, description: 'List of suggested gifts', type: SuggestResponseDto })
   async suggest(@Body() body: GiftSessionDto): Promise<SuggestResponseDto> {
