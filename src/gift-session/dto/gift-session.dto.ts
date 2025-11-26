@@ -8,16 +8,16 @@ class BaseDto {
   @IsEnum(Gender)
   gender: Gender;
 
-  @ApiProperty({ description: 'Возраст человека', example: 25 })
+  @ApiProperty({ description: 'Возраст человека', example: 60 })
   @IsInt()
   @Min(0)
   age: number;
 
-  @ApiProperty({ enum: Occasion, description: 'Повод для подарка' })
+  @ApiProperty({ enum: Occasion, description: 'Повод для подарка', example: Occasion.OTHER })
   @IsEnum(Occasion)
   occasion: Occasion;
 
-  @ApiPropertyOptional({ description: 'Кастомный повод для подарка', example: 'Проводы в армию' })
+  @ApiPropertyOptional({ description: 'Кастомный повод для подарка', example: 'Юбилей' })
   @IsOptional()
   @IsString()
   customOccasion?: string;
@@ -49,8 +49,7 @@ export class GiftSessionDto {
   @ApiPropertyOptional({
     description: 'Произвольное описание',
     maxLength: 350,
-    example: 'любит свой частный дом, ухоженную домашнюю территорию (кирпичный мангал, беседка, баня, бассейн), огород, гараж с инструментами, машину (honda accord 7), бокс смотреть и заниматься им, заниматься спортом (тренажерный зал), смотреть фильмы и сериалы, путешествовать, современную брендовую одежду\n' +
-      'Ценовой диапазон до 2000 рублей',
+    example: 'имеет ухоженную домашнюю территорию: кирпичный мангал, беседка, баня, бассейн, огород, гараж.'
   })
   @IsOptional()
   @IsString()
@@ -59,7 +58,7 @@ export class GiftSessionDto {
 
   @ApiPropertyOptional({
     description: 'Теги интересов',
-    example: { hobby: ['чтение книг', 'настольные игры'], sport: ['фитнес', 'йога'] },
+    example: { hobby: ['просмотр сериалов', 'кулинария', 'садоводство', 'спорт', 'путешествия', 'автомобили'], sport: ['тренажерный зал', 'йога'], technologies: ['умный дом', 'смартфон', 'умные часы', 'аудиотехника'], style: ['аксессуары', 'наручные часы', 'очки', 'барбершоп'] },
   })
   @IsOptional()
   tags?: Record<string, string[]>;
@@ -69,7 +68,7 @@ export class GiftSessionDto {
     isArray: true,
     maxLength: 100,
     example: [
-      'Больше всего любит сидеть дома и много работать, учиться',
+      'На работу и просмотр сериалов, ремонт машины и время дома',
       'Он предпочитает пассивный отдых дома, изредка может выбраться в ресторан',
     ],
   })
