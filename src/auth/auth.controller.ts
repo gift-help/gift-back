@@ -1,13 +1,17 @@
 import { Controller, Post, Body, UnauthorizedException } from '@nestjs/common';
+import { ApiTags, ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { AuthService } from './auth.service';
 import { AuthResponseDto, TelegramAuthDto } from './dto/auth.dto';
 
+@ApiTags('auth')
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('telegram')
-  async telegramAuth(@Body() body: TelegramAuthDto): Promise<AuthResponseDto > {
+  @ApiOperation({ summary: 'Авторизация через Telegram Web App', description: 'Принимает initData от Telegram, проверяет подпись и возвращает JWT и данные пользователя.' })
+  @ApiResponse({ status: 201, description: 'Токен и пользователь', type: AuthResponseDto })
+  async telegramAuth(@Body() body: TelegramAuthDto): Promise<AuthResponseDto> {
     const userData = this.authService.verifyTelegramAuth(body.initData);
 
     if (!userData) {
