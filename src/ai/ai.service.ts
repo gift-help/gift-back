@@ -23,6 +23,7 @@ export class AiService {
 
   async generateGiftIdeas(personDescription: GiftSessionDto): Promise<string[]> {
     const { base, ...rest } = personDescription;
+
     const filteredDescription = [
       `Возраст: ${base.age}`,
       `Пол: ${base.gender}`,
@@ -73,7 +74,7 @@ export class AiService {
     );
 
     const text = response.data.result?.alternatives?.[0]?.message?.text ?? '[]';
-    console.log(text);
+
     try {
       return parseStringToArray(text);
     } catch {
