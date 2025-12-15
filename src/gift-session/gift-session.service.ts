@@ -34,7 +34,7 @@ export class GiftSessionService {
       'набор для создания интерьерных украшений',
       'игровая клавиатура с подсветкой'
     ];
-/*    try {
+    try {
       suggestions = await this.aiService.generateGiftIdeas(data);
     } catch (error) {
       console.error('AI service error', error);
@@ -42,7 +42,7 @@ export class GiftSessionService {
         'Ошибка при запросе к AI-сервису',
         HttpStatus.BAD_GATEWAY,
       );
-    }*/
+    }
 
     const formatLinks: Record<GiftFormat, string[]> = {
       [GiftFormat.WILDBERRIES]: [
