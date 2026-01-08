@@ -1,23 +1,24 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { TIdea } from '../../types/finalResponse';
 
-export class GiftItemDto {
-  @ApiProperty({ description: 'Название товара', example: 'Подарочная кружка' })
-  name: string;
+export class GiftItemDto implements TIdea {
+  @ApiProperty({
+    description: 'Название идеи подарка',
+    example: 'Умный термостат для дома'
+  })
+  title: string;
 
-  @ApiProperty({ description: 'Источник товара (wildberries, yandex market, ozon и т.п.)', example: 'wildberries' })
-  source: string;
+  @ApiProperty({
+    description: 'Поисковый запрос для маркетплейса',
+    example: 'умный термостат для дома автоматизация'
+  })
+  searchQuery: string;
 
-  @ApiProperty({ description: 'Стоимость в рублях', example: 1299 })
-  price: number;
-
-  @ApiProperty({ description: 'Ссылка на картинку товара', example: 'https://cdn.example.com/image.jpg' })
-  image: string;
-
-  @ApiProperty({ description: 'Короткое описание товара', example: 'Керамическая кружка с принтом' })
+  @ApiProperty({
+    description: 'Описание идеи подарка',
+    example: 'Поможет оптимизировать температуру в доме и сэкономить энергию'
+  })
   description: string;
-
-  @ApiProperty({ description: 'Ссылка на страницу товара', example: 'https://www.wildberries.ru/catalog/220043185/detail.aspx' })
-  url: string;
 }
 
 export class GiftFiltersDto {
@@ -37,7 +38,4 @@ export class GiftFiltersDto {
 export class GiftResponseDto {
   @ApiProperty({ description: 'Список найденных/предложенных товаров', isArray: true, type: GiftItemDto, required: false })
   gifts?: GiftItemDto[];
-
-  @ApiProperty({ description: 'Общие выставленные фильтры для результата', type: GiftFiltersDto, required: false })
-  filters?: GiftFiltersDto;
 }

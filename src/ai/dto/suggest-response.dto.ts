@@ -1,7 +1,8 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { TIdea } from '../../types/finalResponse';
 
 export class SuggestResponseDto {
-  @ApiProperty({ type: [String], description: 'Generated suggestions' })
-  suggestions: string[];
+  @ApiProperty({ type: Array<TIdea>, description: 'Generated suggestions' })
+  suggestions: TIdea[];
 }
 
