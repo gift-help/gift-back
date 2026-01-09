@@ -13,8 +13,7 @@ export class GiftSessionController {
   @ApiOperation({
     summary: 'Сбор данных для подбора подарков',
     description:
-      'Принимает объект со сценариями (base, simpleDescription, tags, answers) и возвращает массив объектов подарков и общие фильтры. ' +
-      'Фильтры передаются через query-параметры.',
+      'Принимает объект со сценариями (base, simpleDescription, tags, answers) и возвращает массив объектов подарков. '
   })
   @ApiResponse({
     status: 201,
